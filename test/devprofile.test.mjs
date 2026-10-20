@@ -51,7 +51,7 @@ test('normaliseCoin: USD ATH, graduation, minutes to peak', () => {
   const c = normaliseCoin(REAL.find((x) => x.symbol === 'BOTTLE'));
   assert.equal(c.graduated, true);
   assert.equal(Math.round(c.athMcapUsd), 382919);
-  assert.equal(c.minutesToPeak, 96);
+  assert.equal(c.minutesToPeak, 96.23); // fractional minutes (96 min 14 s)
   assert.equal(c.url, 'https://pump.fun/coin/rc5QqCeRy58gCa4x3KMXiZNY9b86Z3YF3c3M8JLpump');
 });
 

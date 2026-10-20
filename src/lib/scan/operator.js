@@ -516,7 +516,7 @@ export function rateOperator(launches, current = {}) {
   r.push(`${n} prior launch${n > 1 ? 'es' : ''} with price history; median peak ${fmtUsd(medPeak)}${profile?.stats?.best ? ` · best ever ${fmtUsd(profile.stats.best.athMcapUsd)} (${profile.stats.best.symbol || 'token'})` : ''}`);
   if (infra) r.push(`${infra} of them linked through the same funding/payer wallet — a launch tool's shared funder can serve several operators, so treat as "same infrastructure", not proof of the same person`);
   if (!profile) r.push(`${Math.round(gradRate * 100)}% reached graduation mcap (~$69k)`);
-  if (medTtp != null) r.push(medTtp <= 1 ? 'typical time to peak: the launch block (the top was the first few seconds)' : `typical time to peak ${fmtMin(medTtp)}`);
+  if (medTtp != null) r.push(medTtp <= 0.1 ? 'typical time to peak: the launch block (the top was the first few seconds)' : `typical time to peak ${fmtMin(medTtp)}`);
   r.push(`${Math.round(alive * 100)}% are still alive now (ran past $15k and hold ≥20% of that peak today)`);
   if (exits.length) {
     const who = exits.some((e) => e.who === 'dev') ? 'dev' : 'cluster';
@@ -586,6 +586,7 @@ export function fmtUsd(v) {
 }
 export function fmtMin(m) {
   if (m == null) return '—';
+  if (m < 1) return `${Math.round(m * 60)}s`;
   if (m < 60) return `${Math.round(m)}m`;
   if (m < 1440) return `${(m / 60).toFixed(1)}h`;
   return `${(m / 1440).toFixed(1)}d`;

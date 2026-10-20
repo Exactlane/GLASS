@@ -90,7 +90,8 @@ export function callFor({ score, launch, wallets, live, operator, ctx = {} }) {
     why.push(`token farm: this wallet has launched ${prof.totalCreated.toLocaleString()}${prof.atLeast ? '+' : ''} tokens${prof.stats?.ranRate != null ? `, ${Math.round((1 - prof.stats.ranRate) * 100)}% never ran` : ''}`);
   } else if (dumping && (soldShare == null || soldShare >= 0.3)) {
     level = 'avoid';
-    why.push(`launch wallets are selling right now (${s.dumpingNow} sells in 10 min${soldShare != null ? `, ${Math.round(soldShare * 100)}% of their bag gone` : ''})`);
+    const devOnly = (s.walletsTracked || 0) <= 1;
+    why.push(`${devOnly ? 'the dev is' : 'launch wallets are'} selling right now (${s.dumpingNow} sell${s.dumpingNow === 1 ? '' : 's'} in 10 min${soldShare != null ? `, ${Math.round(soldShare * 100)}% of ${devOnly ? 'the dev bag' : 'their bag'} gone` : ''})`);
   } else if (serialDumper && (prof?.stats?.graduationRate || 0) >= 0.4 && !dumping) {
     // The launch wallets dump instantly, yet many of this dev's tokens graduate later: buying at launch
     // means buying their dump, buying later is a different trade. Say exactly that.
@@ -108,8 +109,8 @@ export function callFor({ score, launch, wallets, live, operator, ctx = {} }) {
     why.push(`bundled (${fmtPct(bundlePct)} in ${bundleCount} wallets), but this operator's launches usually run (${opScore}/100 over ${rated})`);
   } else if (bundled || devPct >= 10 || score >= 45) {
     level = 'caution';
-    if (bundled) why.push(`${fmtPct(bundlePct)} of supply in ${bundleCount} linked launch wallet${bundleCount === 1 ? '' : 's'}${devPct >= 3 ? ` + ${fmtPct(devPct)} dev` : ''}`);
-    else if (devPct >= 10) why.push(`dev bought ${fmtPct(devPct)} at launch`);
+    if (bundled && bundleCount > 0 && bundlePct >= 0.5) why.push(`${fmtPct(bundlePct)} of supply in ${bundleCount} linked launch wallet${bundleCount === 1 ? '' : 's'}${devPct >= 3 ? ` + ${fmtPct(devPct)} dev` : ''}`);
+    else if (devPct >= 3) why.push(`dev bought ${fmtPct(devPct)} of supply at launch${bundleCount === 0 ? ', no other wallets in the launch window' : ''}`);
     else why.push(`risk score ${score}/100`);
     if (opScore == null) why.push(rated === 0 && prof?.archetype?.kind === 'first' ? "creator's first token — no history" : 'no usable operator history');
     else if (rated < 3) why.push(`only ${rated} prior launch${rated === 1 ? '' : 'es'} to judge by`);

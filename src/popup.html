@@ -7,10 +7,10 @@
   </head>
   <body>
     <header>
-      <div class="logo">G</div>
+      <img class="logo" src="../icons/icon48.png" alt="GLASS" />
       <div>
         <h1>GLASS</h1>
-        <p>launch transparency for Solana memecoins</p>
+        <p>see who really bought the launch</p>
       </div>
       <label class="switch" title="Enable the panel on supported sites (reload open terminal tabs after changing)"><input type="checkbox" id="enabled" /><span></span></label>
     </header>
@@ -31,8 +31,8 @@
 
     <section>
       <h2>Scan depth</h2>
-      <label class="check"><input type="checkbox" id="operatorHistory" /> Operator history (prior launches, bullish/bearish rating, exit zone)</label>
-      <label class="check"><input type="checkbox" id="liveTracking" /> Insider flow (cluster holdings, coordinated exits, hand-offs)</label>
+      <label class="check"><input type="checkbox" id="operatorHistory" /> Dev history (every prior launch, dev score, exit zone)</label>
+      <label class="check"><input type="checkbox" id="liveTracking" /> Insider flow (live cluster balances, coordinated exits, hand-offs)</label>
       <label class="check"><input type="checkbox" id="jitoLookup" /> Confirm Jito bundles via bundles.jito.wtf</label>
       <div class="grid">
         <label>Launch window (slots)<input type="number" id="slotWindow" min="0" max="10" /></label>
@@ -46,7 +46,7 @@
       <h2>Memory</h2>
       <p class="hint" id="stats">—</p>
       <div class="row">
-        <button id="exportMemory" class="secondary">Export operator memory</button>
+        <button id="exportMemory" class="secondary">Export memory</button>
         <button id="clearCache" class="secondary">Clear report cache</button>
         <button id="clearMemory" class="danger">Wipe memory</button>
       </div>

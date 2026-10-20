@@ -39,7 +39,7 @@ export async function fetchCreatorCoins(creator, { offset = 0, limit = PAGE, ord
 export async function fetchCoin(mint) {
   return cached(`coin:${mint}`, 60_000, async () => {
     try {
-      const r = await fetchJson(`${SOURCES.pumpfun}/coins/${mint}`, { retries: 0, timeoutMs: 8000 });
+      const r = await fetchJson(`${SOURCES.pumpfun}/coins-v2/${mint}`, { retries: 0, timeoutMs: 8000 });
       return r && r.mint ? normaliseCoin(r) : null;
     } catch {
       return null;
@@ -59,7 +59,7 @@ export function normaliseCoin(c) {
     createdAt: created,
     athMcapUsd: ath,
     athAt,
-    minutesToPeak: created && athAt && athAt >= created ? Math.round((athAt - created) / 60000) : null,
+    minutesToPeak: created && athAt && athAt >= created ? Math.round((athAt - created) / 600) / 100 : null, // fractional minutes
     nowMcapUsd: now,
     graduated: !!c.complete,
     lastTradeAt: c.last_trade_timestamp ? Number(c.last_trade_timestamp) : null,
@@ -200,7 +200,7 @@ export function summarise(sample) {
   const ran = withAth.filter((c) => c.athMcapUsd >= 30_000).length;
   const alive = withAth.filter((c) => c.nowMcapUsd != null && c.athMcapUsd >= 15_000 && c.nowMcapUsd / c.athMcapUsd >= 0.2).length;
   const big = withAth.filter((c) => c.athMcapUsd >= 250_000).length;
-  const peakedAtLaunch = withAth.filter((c) => c.minutesToPeak != null && c.minutesToPeak <= 1).length;
+  const peakedAtLaunch = withAth.filter((c) => c.minutesToPeak != null && c.minutesToPeak <= 0.1).length; // within ~6 s of creation
   const best = withAth.reduce((a, c) => (c.athMcapUsd > (a?.athMcapUsd || 0) ? c : a), null);
   return {
     n,

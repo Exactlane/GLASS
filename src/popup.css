@@ -4,7 +4,7 @@ body { width: 380px; margin: 0; background: #0b0d12; color: #e6e8ef; font: 12.5p
 header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #1c2029; background: linear-gradient(180deg, #121620, #0e1118); }
 header h1 { margin: 0; font-size: 15px; letter-spacing: .3px; }
 header p { margin: 0; color: #8b93a5; font-size: 11.5px; }
-.logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #4cc9f0, #3ecf8e); display: grid; place-items: center; color: #06111a; font-weight: 800; }
+.logo { width: 30px; height: 30px; border-radius: 8px; display: block; }
 .switch { margin-left: auto; position: relative; width: 38px; height: 22px; }
 .switch input { opacity: 0; width: 0; height: 0; }
 .switch span { position: absolute; inset: 0; background: #2a3140; border-radius: 999px; transition: .15s; }
