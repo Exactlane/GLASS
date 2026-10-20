@@ -116,17 +116,17 @@ $GLASS is the token that funds GLASS. **Its creator fees pay people to make the 
 | **Contract address** | `[ CA — added at launch ]` |
 | **Chain / launchpad** | Solana · pump.fun |
 | **Official links** | [X / Twitter]( [ link ] ) · [pump.fun]( [ link ] ) · [DexScreener]( [ link ] ) |
-| **Treasury wallet** | `[ address ]` |
+| **Treasury** | `[ address ]` |
 
 ### Where the fees go
 
-$GLASS creator fees are collected in the treasury wallet, which is controlled by the GLASS developer. They're used for three things:
+$GLASS creator fees go to the **Treasury**. The Treasury uses them for three things:
 
 - **Bounties (the majority).** Paid to contributors whose work is merged into GLASS.
 - **Buybacks.** $GLASS bought back from the market.
 - **Burns.** $GLASS permanently removed from supply.
 
-Every bounty payment, buyback and burn is done by the developer from the treasury and recorded with its transaction link in [`TREASURY.md`](TREASURY.md). The treasury wallet is public, so anyone can check the log against the chain.
+Every bounty payment, buyback and burn from the Treasury is recorded with its transaction link in [`TREASURY.md`](TREASURY.md). The Treasury wallet is public, so anyone can check the log against the chain.
 
 ### Try it: run GLASS on $GLASS
 
@@ -142,15 +142,15 @@ The best way to judge a launch-transparency tool is to point it at its own coin.
 
 ## Get paid to make GLASS better
 
-**Anyone can claim a bounty.** You don't need to hold $GLASS, ask permission or be a "core" developer. If your pull request is merged, you get paid from the $GLASS treasury.
+**Anyone can claim a bounty.** You don't need to hold $GLASS, ask permission or be a "core" developer. If your pull request is merged, you get paid from the $GLASS Treasury.
 
 ### How to claim a bounty
 
-1. **Pick a bounty.** Browse [issues labelled `bounty`](../../issues?q=is%3Aissue+is%3Aopen+label%3Abounty). Each one states the task, what "done" means, and the payout. You can also open a new issue using the **Bounty proposal** template, for example to report a detection gap you've found, and the developer will set a payout.
+1. **Pick a bounty.** Browse [issues labelled `bounty`](../../issues?q=is%3Aissue+is%3Aopen+label%3Abounty). Each one states the task, what "done" means, and the payout. You can also open a new issue using the **Bounty proposal** template, for example to report a detection gap you've found, and a maintainer will set a payout.
 2. **Claim it.** Comment `I'm on it` on the issue so others know it's taken.
 3. **Build it.** Every heuristic is a small, pure function with tests next to it, and `npm test` runs the whole suite offline in seconds against real mainnet fixtures. Add a failing test that shows the gap, then make it pass.
 4. **Open a pull request.** Link the issue and put your **Solana payout address** in the PR description.
-5. **Get paid.** Once the PR is merged, the developer pays the bounty from the treasury to that address and adds the transaction to [`TREASURY.md`](TREASURY.md).
+5. **Get paid.** Once the PR is merged, the bounty is paid from the Treasury to that address and the transaction is added to [`TREASURY.md`](TREASURY.md).
 
 Security findings get paid even without a fix: if you find anything that contradicts [Verify it isn't a drainer](#verify-it-isnt-a-drainer), report it privately and that's the highest-paying bounty there is.
 
