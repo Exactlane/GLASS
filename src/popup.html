@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GLASS settings</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">G</div>
+      <div>
+        <h1>GLASS</h1>
+        <p>launch transparency for Solana memecoins</p>
+      </div>
+      <label class="switch" title="Enable the panel on supported sites (reload open terminal tabs after changing)"><input type="checkbox" id="enabled" /><span></span></label>
+    </header>
+
+    <section>
+      <h2>RPC endpoint</h2>
+      <p class="hint">The scan runs in your browser against this RPC. The default (publicnode) is free and needs no key. A free <a href="https://dashboard.helius.dev" target="_blank" rel="noopener">Helius</a> key gives higher limits and full token-account coverage. Note: Solana's own <code>api.mainnet-beta.solana.com</code> blocks browser extensions (HTTP 403); GLASS falls back to publicnode automatically if you set it.</p>
+      <div class="row">
+        <input type="text" id="heliusKey" placeholder="Helius API key (optional)" autocomplete="off" spellcheck="false" />
+        <button id="useHelius" class="secondary">Use</button>
+      </div>
+      <input type="text" id="rpcUrl" placeholder="https://..." autocomplete="off" spellcheck="false" />
+      <div class="row">
+        <button id="testRpc" class="secondary">Test</button>
+        <span id="rpcStatus" class="status"></span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Scan depth</h2>
+      <label class="check"><input type="checkbox" id="operatorHistory" /> Operator history (prior launches, bullish/bearish rating, exit zone)</label>
+      <label class="check"><input type="checkbox" id="liveTracking" /> Insider flow (cluster holdings, coordinated exits, hand-offs)</label>
+      <label class="check"><input type="checkbox" id="jitoLookup" /> Confirm Jito bundles via bundles.jito.wtf</label>
+      <div class="grid">
+        <label>Launch window (slots)<input type="number" id="slotWindow" min="0" max="10" /></label>
+        <label>Early window (seconds)<input type="number" id="earlyWindowSec" min="5" max="600" /></label>
+        <label>Max wallets profiled<input type="number" id="maxWalletProfiles" min="5" max="120" /></label>
+        <label>Max prior launches<input type="number" id="maxPriorLaunches" min="1" max="20" /></label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Memory</h2>
+      <p class="hint" id="stats">—</p>
+      <div class="row">
+        <button id="exportMemory" class="secondary">Export operator memory</button>
+        <button id="clearCache" class="secondary">Clear report cache</button>
+        <button id="clearMemory" class="danger">Wipe memory</button>
+      </div>
+    </section>
+
+    <footer>
+      <button id="save">Save</button>
+      <span id="saved" class="status"></span>
+      <span class="spacer"></span>
+      <span class="hint" style="margin:0">Settings apply to newly loaded tabs.</span>
+    </footer>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
