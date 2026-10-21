@@ -2,7 +2,7 @@
 
 Every movement out of the $GLASS Treasury is recorded here with its on-chain transaction, so anyone can check it against the chain.
 
-**Treasury:** `[ address ]`
+**Treasury:** `5s1Lim2SqhTyDxeGdtmDzL4V8pPdwoiRRYL6uKLXwxYr`
 
 $GLASS creator fees go to the Treasury. The Treasury uses them to pay contributor bounties (the majority), and for buybacks and burns. Every payment is logged below.
 
