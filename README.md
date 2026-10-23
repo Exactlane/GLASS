@@ -113,7 +113,7 @@ $GLASS is the token that funds GLASS. **Its creator fees pay people to make the 
 
 | | |
 |---|---|
-| **Contract address** | `Launching 10/21 at 12pm CT` |
+| **Contract address** | `Launching 10/24 at 12pm CT` |
 | **Chain / launchpad** | Solana · pump.fun |
 | **Official links** | [X / Twitter](https://x.com/glassonsol) · [pump.fun](https://pump.fun/profile/GLASStreasury) |
 | **Treasury** | `5s1Lim2SqhTyDxeGdtmDzL4V8pPdwoiRRYL6uKLXwxYr` |
