@@ -5,7 +5,7 @@
 <h1 align="center">GLASS</h1>
 
 <p align="center">
-  <b>See who is really behind a Solana launch — on the token page you're already looking at.</b>
+  <b>See who is really behind a Solana launch on the token page you're already looking at.</b>
 </p>
 
 <p align="center">
