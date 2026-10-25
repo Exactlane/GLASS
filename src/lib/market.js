@@ -169,7 +169,7 @@ export async function priceHistory(mint, { supply = PUMP_TOTAL_SUPPLY, createdAt
     if (ageMs > 3.3 * 86400e3) candles.push(...(await geckoOhlcv(top.address, 'hour', 1, 1000, undefined, mint)));
     if (ageMs > 40 * 86400e3) candles.push(...(await geckoOhlcv(top.address, 'day', 1, 1000, undefined, mint)));
     // For graduated tokens also pull the bonding-curve pool (pre-graduation price path), if listed.
-    const curvePool = pools.find((p) => p !== top && p.dex === 'pumpfun');
+    const curvePool = pools.find((p) => p !== top && (p.dex === 'pump-fun' || p.dex === 'pumpfun'));
     if (curvePool) candles.push(...(await geckoOhlcv(curvePool.address, 'minute', 5, 1000, undefined, mint)));
     if (!candles.length) return { available: false, pools: pools.map((p) => p.address), top };
     candles.sort((a, b) => a.t - b.t);
