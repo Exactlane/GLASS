@@ -65,28 +65,30 @@ test('priceHistory values the requested quote token, not the USDC pool base', as
   assert.equal(history.checkpoints[5], 30);
 });
 
-test('priceHistory keeps the same mint across minute/hour/day and a reversed curve pool', async (t) => {
-  const start = NOW / 1000 - 45 * 86400;
-  const candles = {
-    'main:day': [[start, 0.01, 0.04, 0.005, 0.02, 10]],
-    'main:hour': [[start + 86400, 0.02, 0.08, 0.01, 0.04, 20]],
-    'main:minute': [[start + 2 * 86400, 0.04, 0.06, 0.03, 0.05, 30]],
-    'curve:minute': [[start - 300, 0.005, 0.02, 0.001, 0.01, 40]],
-  };
-  const market = await marketFixture(t, [
-    pool('main', { targetSide: 'base', ageDays: 45, reserve: 1000 }),
-    pool('curve', { targetSide: 'quote', dex: 'pumpfun', ageDays: 45, reserve: 100 }),
-  ], ({ address, timeframe, isTarget }) => (
-    isTarget ? candles[`${address}:${timeframe}`] : [[start - 300, 1, 1.01, 0.99, 1, 40]]
-  ));
-  const history = await market.priceHistory(MINT, { supply: 1000 });
-  assert.equal(history.candles, 4);
-  assert.equal(history.firstMcapUsd, 5);
-  assert.equal(history.peakMcapUsd, 80);
-  assert.equal(history.lastMcapUsd, 50);
-  assert.equal(history.totalVolumeUsd, 100);
-  assert.deepEqual(market.requests.filter((url) => url.pathname.includes('/ohlcv/')).map((url) => url.searchParams.get('token')), [MINT, MINT, MINT, MINT]);
-});
+for (const curveDex of ['pump-fun', 'pumpfun']) {
+  test(`priceHistory keeps the same mint across minute/hour/day and a reversed ${curveDex} pool`, async (t) => {
+    const start = NOW / 1000 - 45 * 86400;
+    const candles = {
+      'main:day': [[start, 0.01, 0.04, 0.005, 0.02, 10]],
+      'main:hour': [[start + 86400, 0.02, 0.08, 0.01, 0.04, 20]],
+      'main:minute': [[start + 2 * 86400, 0.04, 0.06, 0.03, 0.05, 30]],
+      'curve:minute': [[start - 300, 0.005, 0.02, 0.001, 0.01, 40]],
+    };
+    const market = await marketFixture(t, [
+      pool('main', { targetSide: 'base', ageDays: 45, reserve: 1000 }),
+      pool('curve', { targetSide: 'quote', dex: curveDex, ageDays: 45, reserve: 100 }),
+    ], ({ address, timeframe, isTarget }) => (
+      isTarget ? candles[`${address}:${timeframe}`] : [[start - 300, 1, 1.01, 0.99, 1, 40]]
+    ));
+    const history = await market.priceHistory(MINT, { supply: 1000 });
+    assert.equal(history.candles, 4);
+    assert.equal(history.firstMcapUsd, 5);
+    assert.equal(history.peakMcapUsd, 80);
+    assert.equal(history.lastMcapUsd, 50);
+    assert.equal(history.totalVolumeUsd, 100);
+    assert.deepEqual(market.requests.filter((url) => url.pathname.includes('/ohlcv/')).map((url) => url.searchParams.get('token')), [MINT, MINT, MINT, MINT]);
+  });
+}
 
 test('geckoOhlcv preserves base defaults and pagination while accepting an explicit quote selector', async (t) => {
   const base = [[1000, 1, 1.01, 0.99, 1, 10]];
